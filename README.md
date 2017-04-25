@@ -1,6 +1,6 @@
 # vuejs-dt
 
-> A Vue.js project
+> Um exemplo de uso do Vue.js com DataTables e dialogs jQueryUI.
 
 ## Build Setup
 
