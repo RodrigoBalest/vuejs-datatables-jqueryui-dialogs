@@ -3,6 +3,9 @@ export default {
     url: 'https://jsonplaceholder.typicode.com/posts',
     dataSrc: ''
   },
+  order: [
+    [3, 'asc']
+  ],
   columns: [
     {
       title: 'Ações',
