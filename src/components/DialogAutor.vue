@@ -1,5 +1,5 @@
 <template lang="html">
-  <jquery-dialog :config='dialogConfig'>
+  <jquery-dialog :config='dialogConfig' v-if='Object.keys(dados).length > 0'>
     <h3>{{ dados.name }} <small>ID: {{ dados.id }}</small></h3>
     <div class="section">
       <p><strong>E-mail:</strong> {{ dados.email }}</p>

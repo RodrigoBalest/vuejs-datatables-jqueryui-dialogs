@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import DataTable from './components/DataTable.vue'
 import DialogAutor from './components/DialogAutor.vue'
 import dtConfig from './datatables/home.js'
@@ -29,7 +30,11 @@ export default {
       $.get('https://jsonplaceholder.typicode.com/users/' + rowData.userId)
         .done(function (data) {
           this.autorAtual = data
-          this.$refs.dialogAutor.exibe('Dados do autor')
+          // Permite que o dialog seja encontrado em this.$refs antes
+          // de podermos acessá-lo.
+          Vue.nextTick(function () {
+            this.$refs.dialogAutor.exibe('Dados do autor')
+          }.bind(this))
         }.bind(this))
     }
   }
