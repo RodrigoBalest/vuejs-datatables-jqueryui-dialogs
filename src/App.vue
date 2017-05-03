@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <data-table :dt-config='dtConfig' @ver-autor='verAutor'></data-table>
-    <dialog-autor ref='dialogAutor' :dialog-config='dialogConfig' :dados='autorAtual'></dialog-autor>
+    <dialog-autor ref='dialogAutor' :config='dialogConfig' :dados='autorAtual' @button-clicked='logEvent'></dialog-autor>
   </div>
 </template>
 
@@ -11,6 +11,7 @@ import DataTable from './components/DataTable.vue'
 import DialogAutor from './components/DialogAutor.vue'
 import dtConfig from './datatables/home.js'
 import dialogConfig from './dialogs/autor.js'
+import 'blockui'
 
 export default {
   name: 'app',
@@ -26,13 +27,19 @@ export default {
     DialogAutor
   },
   methods: {
+    logEvent (d) {
+      console.log('Evento capturado no componente pai:')
+      console.log(d)
+    },
     verAutor (rowData, ev) {
+      $.blockUI()
       $.get('https://jsonplaceholder.typicode.com/users/' + rowData.userId)
         .done(function (data) {
           this.autorAtual = data
           // Permite que o dialog seja encontrado em this.$refs antes
           // de podermos acessá-lo.
           Vue.nextTick(function () {
+            $.unblockUI()
             this.$refs.dialogAutor.exibe('Dados do autor')
           }.bind(this))
         }.bind(this))

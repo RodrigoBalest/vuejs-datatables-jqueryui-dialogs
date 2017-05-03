@@ -1,10 +1,3 @@
-<template lang="html">
-  <div class="dialog">
-    <slot></slot>
-  </div>
-</template>
-
-<script>
 import 'jquery-ui/ui/widgets/dialog.js'
 import 'jquery-ui/themes/base/core.css'
 import 'jquery-ui/themes/base/base.css'
@@ -18,13 +11,15 @@ export default {
       required: true
     }
   },
-  mounted () {
-    this.handle = $(this.$el).dialog(this.config)
-  },
   methods: {
     exibe (titulo) {
+      this.setUp()
       this.handle.dialog('option', 'title', titulo).dialog('open')
+    },
+    setUp () {
+      if (!this.handle) {
+        this.handle = $(this.$el).dialog(this.config)
+      }
     }
   }
 }
-</script>

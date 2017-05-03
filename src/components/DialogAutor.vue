@@ -1,5 +1,5 @@
 <template lang="html">
-  <jquery-dialog :config='dialogConfig' v-if='Object.keys(dados).length > 0'>
+  <div class='dialog-autor' v-if='Object.keys(dados).length > 0'>
     <h3>{{ dados.name }} <small>ID: {{ dados.id }}</small></h3>
     <div class="section">
       <p><strong>E-mail:</strong> {{ dados.email }}</p>
@@ -16,18 +16,22 @@
       <p>{{ dados.company.name }}<br />
       {{ dados.company.catchPhrase }}</p>
     </div>
-  </jquery-dialog>
+    <button type='button' class='btn btn-default' @click='emitEvent'>Emitir evento</button>
+  </div>
 </template>
 
 <script>
-import DialogsComum from './DialogsComum.js'
+import DialogBase from './jQueryDialogBase.js'
 
-DialogsComum.props.dados = {
+DialogBase.props.dados = {
   type: Object,
   required: true
 }
+DialogBase.methods.emitEvent = function () {
+  this.$emit('button-clicked', this.dados)
+}
 
-export default DialogsComum
+export default DialogBase
 </script>
 
 <style>
